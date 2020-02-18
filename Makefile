@@ -88,3 +88,6 @@ source-package:
 	cp css/all.css source_package/jitsi-meet/css && \
 	(cd source_package ; tar cjf ../jitsi-meet.tar.bz2 jitsi-meet) && \
 	rm -rf source_package
+
+grape-css: deploy-css
+	$(NODE_SASS) css/_grape_skin.scss css/grape.css --output-style expanded

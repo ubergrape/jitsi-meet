@@ -32,7 +32,7 @@ function getPerformanceHints(size) {
 // jitsi-meet such as app.bundle.js and external_api.js.
 const config = {
     devServer: {
-        https: true,
+        https: false,
         inline: true,
         proxy: {
             '/': {
@@ -41,9 +41,12 @@ const config = {
                 target: devServerProxyTarget,
                 headers: {
                     'Host': new URL(devServerProxyTarget).host
-                }
+                },
+                host: "0.0.0.0",
+                disableHostCheck: true,
             }
-        }
+        },
+        allowedHosts: [".ngrok.io"]
     },
     devtool: 'source-map',
     mode: minimize ? 'production' : 'development',
