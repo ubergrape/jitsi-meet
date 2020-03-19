@@ -6,38 +6,35 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'jitsi-meet.example.com',
+        domain: 'cloud.grapecall.com',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
 
         // Domain for authenticated users. Defaults to <domain>.
-        // authdomain: 'jitsi-meet.example.com',
+        // authdomain: 'cloud.grapecall.com',
 
         // Jirecon recording component domain.
-        // jirecon: 'jirecon.jitsi-meet.example.com',
+        // jirecon: 'jirecon.cloud.grapecall.com',
 
         // Call control component (Jigasi).
-        // call_control: 'callcontrol.jitsi-meet.example.com',
+        // call_control: 'callcontrol.cloud.grapecall.com',
 
         // Focus component domain. Defaults to focus.<domain>.
-        // focus: 'focus.jitsi-meet.example.com',
+        // focus: 'focus.cloud.grapecall.com',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.jitsi-meet.example.com'
+        muc: 'conference.cloud.grapecall.com'
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: '//jitsi-meet.example.com/http-bind',
-
-    // Websocket URL
-    // websocket: 'wss://jitsi-meet.example.com/xmpp-websocket',
+    bosh: '//cloud.grapecall.com/http-bind',
 
     // The name of client node advertised in XEP-0115 'c' stanza
     clientNode: 'http://jitsi.org/jitsimeet',
 
     // The real JID of focus participant - can be overridden here
-    // focusUserJid: 'focus@auth.jitsi-meet.example.com',
+    // focusUserJid: 'focus@auth.cloud.grapecall.com',
 
 
     // Testing / experimental features.
@@ -76,17 +73,6 @@ var config = {
     // Disable measuring of audio levels.
     // disableAudioLevels: false,
 
-    // Enabling this will run the lib-jitsi-meet no audio detection module which
-    // will notify the user if the current selected microphone has no audio
-    // input and will suggest another valid device if one is present.
-    enableNoAudioDetection: true,
-
-    // Enabling this will run the lib-jitsi-meet noise detection module which will
-    // notify the user if there is noise, other than voice, coming from the current
-    // selected microphone. The purpose it to let the user know that the input could
-    // be potentially unpleasant for other meeting participants.
-    enableNoisyMicDetection: true,
-
     // Start the conference in audio only mode (no video is being received nor
     // sent).
     // startAudioOnly: false,
@@ -112,15 +98,15 @@ var config = {
     // util#browser#usesNewGumFlow. The constraints are independency from
     // this config's resolution value. Defaults to requesting an ideal aspect
     // ratio of 16:9 with an ideal resolution of 720.
-    // constraints: {
-    //     video: {
+//     constraints: {
+  //       video: {
     //         aspectRatio: 16 / 9,
-    //         height: {
-    //             ideal: 720,
-    //             max: 720,
-    //             min: 240
-    //         }
-    //     }
+      //       height: {
+        //        ideal: 180,
+          //       max: 720,
+            //     min: 180
+          //   }
+        // }
     // },
 
     // Enable / disable simulcast support.
@@ -184,9 +170,9 @@ var config = {
     //     appKey: '<APP_KEY>' // Specify your app key here.
     //     // A URL to redirect the user to, after authenticating
     //     // by default uses:
-    //     // 'https://jitsi-meet.example.com/static/oauth.html'
+    //     // 'https://cloud.grapecall.com/static/oauth.html'
     //     redirectURI:
-    //          'https://jitsi-meet.example.com/subfolder/static/oauth.html'
+    //          'https://cloud.grapecall.com/subfolder/static/oauth.html'
     // },
     // When integrations like dropbox are enabled only that will be shown,
     // by enabling fileRecordingsServiceEnabled, we show both the integrations
@@ -234,7 +220,7 @@ var config = {
     // minParticipants: 2,
 
     // Use XEP-0215 to fetch STUN and TURN servers.
-    // useStunTurn: true,
+    useStunTurn: true,
 
     // Enable IPv6 support.
     // useIPv6: true,
@@ -334,12 +320,10 @@ var config = {
         enabled: true,
 
         // Use XEP-0215 to fetch STUN and TURN servers.
-        // useStunTurn: true,
+        useStunTurn: true,
 
         // The STUN servers that will be used in the peer to peer connections
         stunServers: [
-
-            // { urls: 'stun:jitsi-meet.example.com:443' },
             { urls: 'stun:stun.l.google.com:19302' },
             { urls: 'stun:stun1.l.google.com:19302' },
             { urls: 'stun:stun2.l.google.com:19302' }
@@ -387,20 +371,6 @@ var config = {
         // region: "europe",
         // userRegion: "asia"
     }
-
-    // Information for the chrome extension banner
-    // chromeExtensionBanner: {
-    //     // The chrome extension to be installed address
-    //     url: 'https://chrome.google.com/webstore/detail/jitsi-meetings/kglhbbefdnlheedjiejgomgmfplipfeb',
-
-    //     // Extensions info which allows checking if they are installed or not
-    //     chromeExtensionsInfo: [
-    //         {
-    //             id: 'kglhbbefdnlheedjiejgomgmfplipfeb',
-    //             path: 'jitsi-logo-48x48.png'
-    //         }
-    //     ]
-    // }
 
     // Local Recording
     //
