@@ -18,11 +18,9 @@ import {
 import { ConnectionIndicator } from '../../../react/features/connection-indicator';
 import { DisplayName } from '../../../react/features/display-name';
 import {
-    AudioMutedIndicator,
     DominantSpeakerIndicator,
-    ModeratorIndicator,
     RaisedHandIndicator,
-    VideoMutedIndicator
+    StatusIndicators
 } from '../../../react/features/filmstrip';
 import {
     LAYOUTS,
@@ -84,9 +82,7 @@ export default class SmallVideo {
      * Constructor.
      */
     constructor(VideoLayout) {
-        this._isModerator = false;
         this.isAudioMuted = false;
-        this.hasAvatar = false;
         this.isVideoMuted = false;
         this.videoStream = null;
         this.audioStream = null;
@@ -193,6 +189,7 @@ export default class SmallVideo {
 
         if (isVideo) {
             element.setAttribute('muted', 'true');
+            element.setAttribute('playsInline', 'true'); /* for Safari on iOS to work */
         } else if (config.startSilent) {
             element.muted = true;
         }
@@ -286,43 +283,16 @@ export default class SmallVideo {
             return;
         }
 
-        const currentLayout = getCurrentLayout(APP.store.getState());
-        let tooltipPosition;
-
-        if (currentLayout === LAYOUTS.TILE_VIEW) {
-            tooltipPosition = 'right';
-        } else if (currentLayout === LAYOUTS.VERTICAL_FILMSTRIP_VIEW) {
-            tooltipPosition = 'left';
-        } else {
-            tooltipPosition = 'top';
-        }
-
         ReactDOM.render(
-            <I18nextProvider i18n = { i18next }>
-                <div>
-                    { this.isAudioMuted
-                        ? <AudioMutedIndicator
-                            tooltipPosition = { tooltipPosition } />
-                        : null }
-                    { this.isVideoMuted
-                        ? <VideoMutedIndicator
-                            tooltipPosition = { tooltipPosition } />
-                        : null }
-                    { this._isModerator && !interfaceConfig.DISABLE_FOCUS_INDICATOR
-                        ? <ModeratorIndicator
-                            tooltipPosition = { tooltipPosition } />
-                        : null }
-                </div>
-            </I18nextProvider>,
+            <Provider store = { APP.store }>
+                <I18nextProvider i18n = { i18next }>
+                    <StatusIndicators
+                        showAudioMutedIndicator = { this.isAudioMuted }
+                        showVideoMutedIndicator = { this.isVideoMuted }
+                        participantID = { this.id } />
+                </I18nextProvider>
+            </Provider>,
             statusBarContainer);
-    }
-
-    /**
-     * Adds the element indicating the moderator(owner) of the conference.
-     */
-    addModeratorIndicator() {
-        this._isModerator = true;
-        this.updateStatusBar();
     }
 
     /**
@@ -378,14 +348,6 @@ export default class SmallVideo {
      */
     _getAudioLevelContainer() {
         return this.container.querySelector('.audioindicator-container');
-    }
-
-    /**
-     * Removes the element indicating the moderator(owner) of the conference.
-     */
-    removeModeratorIndicator() {
-        this._isModerator = false;
-        this.updateStatusBar();
     }
 
     /**
@@ -556,20 +518,9 @@ export default class SmallVideo {
     }
 
     /**
-     * Hides or shows the user's avatar.
-     * This update assumes that large video had been updated and we will
-     * reflect it on this small video.
+     * Updates the css classes of the thumbnail based on the current state.
      */
     updateView() {
-        if (this.id) {
-            // Init / refresh avatar
-            this.initializeAvatar();
-        } else {
-            logger.error('Unable to init avatar - no id', this);
-
-            return;
-        }
-
         this.$container.removeClass((index, classNames) =>
             classNames.split(' ').filter(name => name.startsWith('display-')));
 
@@ -618,8 +569,6 @@ export default class SmallVideo {
      */
     initializeAvatar() {
         const thumbnail = this.$avatar().get(0);
-
-        this.hasAvatar = true;
 
         if (thumbnail) {
             // Maybe add a special case for local participant, as on init of

@@ -9,7 +9,7 @@ import { Container } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
 import { ChatButton } from '../../../chat';
-import { InfoDialogButton } from '../../../invite';
+import { InviteButton } from '../../../invite';
 
 import { isToolboxVisible } from '../../functions';
 
@@ -110,6 +110,7 @@ class Toolbox extends PureComponent<Props> {
 
         return (
             <View
+                accessibilityRole = 'toolbar'
                 pointerEvents = 'box-none'
                 style = { styles.toolbar }>
                 {
@@ -122,7 +123,7 @@ class Toolbox extends PureComponent<Props> {
                 }
                 {
                     !_chatEnabled
-                        && <InfoDialogButton
+                        && <InviteButton
                             styles = { buttonStyles }
                             toggledStyles = { toggledButtonStyles } />
                 }
