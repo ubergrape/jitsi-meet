@@ -80,6 +80,7 @@
 
                 #filmstripRemoteVideosContainer {
                     overflow-y: auto;
+                    overflow-x: hidden;
                 }
             }
 
@@ -259,6 +260,10 @@
                 svg {
                     fill: #fff !important;
                 }
+
+                path {
+                    fill: #fff !important;
+                }
             }
         }
 
@@ -425,6 +430,76 @@ div.eYJELv, div.jLkPZH {
     }
 }
 
+/* youtube share */
+.jqistate  {
+
+    div {
+        background: #333333 !important;
+    }
+
+    .aui-dialog2-header {
+        border-radius: 8px 8px 0 0;
+        border-bottom: none;
+
+        h2 {
+            @include headlineStyle();
+        }
+    }
+
+    .aui-dialog2-content {
+
+    }
+
+    .aui-dialog2-footer {
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .jqibutton {
+        @include emphasisStyle();
+        border-radius: 16px;
+        color: #fff !important;
+        border: 2px solid transparent;
+        padding: 0;
+
+        &:hover {
+            background: #737373;
+        }
+
+        &:active {
+            background: inherit;
+            border: 2px solid #97CCFD;
+        }
+    }
+
+    .button-control_primary {
+        background: #8F28B3;
+        padding: 0 13px;
+
+        border: none;
+
+        &>span {
+            &>span {
+                margin: 0 8px !important;
+            }
+        }
+
+        &:hover, &:active {
+            background: #8224A3;
+            border: none;
+        }
+    }
+
+    input {
+        background: #333333 !important;
+        border: 1px solid #E0E0E0;
+        box-sizing: border-box;
+        border-radius: 16px;
+        height: 32px;
+    }
+
+}
+
 
 .video-quality-dialog {
 
@@ -487,8 +562,12 @@ div.eYJELv, div.jLkPZH {
 #modal-dialog-form {
     margin-top: 7px !important;
 
-    .iqNwPx, .oQiLZ {
+    .iqNwPx, .oQiLZ, div {
         @include normalStyle();
+    }
+
+    div {
+        margin-left: 10px;
     }
 
     .iqNwPx {
@@ -809,7 +888,7 @@ div.eYJELv, div.jLkPZH {
     border: 1px solid #737373;
     box-sizing: border-box;
     border-radius: 4px;
-    width: 47px;
+    min-width: 47px;
     height: 24px;
     padding: 3px 0 0 10px;
 
